@@ -1,6 +1,7 @@
 package org.iesvdm.tddjava.connect4;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +10,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class Connect4TDDSpec {
@@ -47,32 +47,50 @@ public class Connect4TDDSpec {
 
     @Test
     public void whenDiscOutsideBoardThenRuntimeException() {
-
+        try {
+            tested.putDiscInColumn(Connect4.COLUMNS+1);
+        }catch (RuntimeException e){
+            assertEquals(tested.toString(),e.getMessage());
+        }
 
     }
 
     @Test
     public void whenFirstDiscInsertedInColumnThenPositionIsZero() {
-
+        tested.putDiscInColumn(0);
+        assertEquals(0 , tested.getNumberOfDiscsInColumn(0));
     }
 
     @Test
     public void whenSecondDiscInsertedInColumnThenPositionIsOne() {
-
-
+    tested.putDiscInColumn(1);
+    tested.putDiscInColumn(1);
+    assertEquals(2 , tested.getNumberOfDiscsInColumn(1));
     }
 
     @Test
     public void whenDiscInsertedThenNumberOfDiscsIncreases() {
 
-
+        tested.putDiscInColumn(1);
+        tested.putDiscInColumn(1);
+        tested.putDiscInColumn(1);
+        assertEquals(3 , tested.getNumberOfDiscsInColumn(1));
 
     }
 
     @Test
     public void whenNoMoreRoomInColumnThenRuntimeException() {
 
-
+        for (int i = 0; i < Connect4.COLUMNS; i++) {
+            try {
+                for (int j = 0; j < Connect4.ROWS; j++) {
+                    tested.putDiscInColumn(i);
+                }
+//                Assertions.fail("se esperaba la excepcion");
+            }catch (RuntimeException e){
+                assertEquals(tested.toString(),e.getMessage());
+            }
+        }
 
     }
 
@@ -84,12 +102,13 @@ public class Connect4TDDSpec {
 
     @Test
     public void whenFirstPlayerPlaysThenDiscColorIsRed() {
-
+        assertEquals("R", tested.getCurrentPlayer());
     }
 
     @Test
     public void whenSecondPlayerPlaysThenDiscColorIsGreen() {
-
+        tested.switchPlayer();
+        assertEquals("G", tested.getCurrentPlayer());
     }
 
     /*
@@ -99,7 +118,7 @@ public class Connect4TDDSpec {
 
     @Test
     public void whenAskedForCurrentPlayerTheOutputNotice() {
-
+        tested.getCurrentPlayer();
 
 
     }

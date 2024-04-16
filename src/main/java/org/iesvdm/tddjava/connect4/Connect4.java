@@ -45,7 +45,7 @@ public class Connect4 {
         }
     }
 
-    private void switchPlayer() {
+    public void switchPlayer() {
         if (Color.RED == currentPlayer) {
             currentPlayer = Color.GREEN;
         } else {
@@ -83,7 +83,7 @@ public class Connect4 {
         }
     }
 
-    private int getNumberOfDiscsInColumn(int column) {
+    public int getNumberOfDiscsInColumn(int column) {
         if (column >= 0 && column < COLUMNS) {
             int row;
             for (row = 0; row < ROWS; row++) {
@@ -94,7 +94,7 @@ public class Connect4 {
         return -1;
     }
 
-    private void checkWinCondition(int col, int row) {
+    public void checkWinCondition(int col, int row) {
         Pattern winPattern = Pattern.compile(".*" + currentPlayer + "{" + DISCS_FOR_WIN + "}.*");
 
         // Vertical check

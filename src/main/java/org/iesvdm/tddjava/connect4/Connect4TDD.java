@@ -47,7 +47,7 @@ public class Connect4TDD {
                 .map(this::getNumberOfDiscsInColumn).sum();
     }
 
-    private int getNumberOfDiscsInColumn(int column) {
+    public int getNumberOfDiscsInColumn(int column) {
         return (int) IntStream.range(0, ROWS)
                 .filter(row -> !EMPTY.equals(board[row][column]))
                 .count();
@@ -64,7 +64,7 @@ public class Connect4TDD {
         return row;
     }
 
-    private void printBoard() {
+    public void printBoard() {
         for (int row = ROWS - 1; row >= 0; row--) {
             StringJoiner stringJoiner = new StringJoiner(DELIMITER, DELIMITER, DELIMITER);
             Stream.of(board[row]).forEachOrdered(stringJoiner::add);
@@ -72,19 +72,19 @@ public class Connect4TDD {
         }
     }
 
-    private void switchPlayer() {
+    public void switchPlayer() {
         if (RED.equals(currentPlayer))
             currentPlayer = GREEN;
         else currentPlayer = RED;
     }
 
-    private void checkColumn(int column) {
+    public void checkColumn(int column) {
         if (column < 0 || column >= COLUMNS)
             throw new RuntimeException(String.format("Invalid column %d", column));
 
     }
 
-    private void checkPositionToInsert(int row, int column) {
+    public void checkPositionToInsert(int row, int column) {
         if (row == ROWS)
             throw new RuntimeException(String.format("No more room in column %d", column));
     }
@@ -97,7 +97,7 @@ public class Connect4TDD {
         return winner;
     }
 
-    private void checkWinner(int row, int column) {
+    public   void checkWinner(int row, int column) {
         if (winner.isEmpty()) {
             String colour = board[row][column];
             Pattern winPattern = Pattern.compile(".*" + colour + "{" + DISCS_TO_WIN + "}.*");
