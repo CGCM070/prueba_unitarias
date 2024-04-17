@@ -51,8 +51,8 @@ public class Connect4TDDSpec {
             tested.putDiscInColumn(Connect4.COLUMNS + 1);
         } catch (RuntimeException e) {
             assertThat(e.getMessage()).isNotEmpty();
-        }
 
+        }
     }
 
     @Test
@@ -190,6 +190,18 @@ public class Connect4TDDSpec {
 
     @Test
     public void when4Diagonal1DiscsAreConnectedThenThatPlayerWins() {
+            for (int i =0 ; i < Connect4.COLUMNS-2; i++) {
+                for (int j = 0 ; j <i ; j++) {
+                    tested.putDiscInColumn(i);
+                    tested.switchPlayer();
+                }
+            }
+            System.out.println(output.toString());
+
+//            assertThat(tested.isFinished()).isTrue();
+            assertThat(tested.getWinner().equalsIgnoreCase("R")).isTrue();
+
+
 
     }
 
