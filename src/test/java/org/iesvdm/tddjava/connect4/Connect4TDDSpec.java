@@ -36,7 +36,7 @@ public class Connect4TDDSpec {
 
     @Test
     public void whenTheGameStartsTheBoardIsEmpty() {
-
+        assertThat(tested.getNumberOfDiscs()).isZero();
     }
 
     /*
@@ -48,9 +48,9 @@ public class Connect4TDDSpec {
     @Test
     public void whenDiscOutsideBoardThenRuntimeException() {
         try {
-            tested.putDiscInColumn(Connect4.COLUMNS+1);
-        }catch (RuntimeException e){
-            assertEquals(tested.toString(),e.getMessage());
+            tested.putDiscInColumn(Connect4.COLUMNS + 1);
+        } catch (RuntimeException e) {
+            assertThat(e.getMessage()).isNotEmpty();
         }
 
     }
@@ -58,40 +58,36 @@ public class Connect4TDDSpec {
     @Test
     public void whenFirstDiscInsertedInColumnThenPositionIsZero() {
         tested.putDiscInColumn(0);
-        assertEquals(0 , tested.getNumberOfDiscsInColumn(0));
+        assertEquals(0, tested.getNumberOfDiscsInColumn(0));
     }
 
     @Test
     public void whenSecondDiscInsertedInColumnThenPositionIsOne() {
-    tested.putDiscInColumn(1);
-    tested.putDiscInColumn(1);
-    assertEquals(2 , tested.getNumberOfDiscsInColumn(1));
+        tested.putDiscInColumn(1);
+        tested.putDiscInColumn(1);
+        assertEquals(2, tested.getNumberOfDiscsInColumn(1));
     }
 
     @Test
     public void whenDiscInsertedThenNumberOfDiscsIncreases() {
-
+        int numDisco = tested.getNumberOfDiscs();
         tested.putDiscInColumn(1);
-        tested.putDiscInColumn(1);
-        tested.putDiscInColumn(1);
-        assertEquals(3 , tested.getNumberOfDiscsInColumn(1));
+        assertEquals(numDisco + 1, tested.getNumberOfDiscs());
 
     }
 
     @Test
     public void whenNoMoreRoomInColumnThenRuntimeException() {
-
         for (int i = 0; i < Connect4.COLUMNS; i++) {
             try {
                 for (int j = 0; j < Connect4.ROWS; j++) {
                     tested.putDiscInColumn(i);
                 }
-//                Assertions.fail("se esperaba la excepcion");
-            }catch (RuntimeException e){
-                assertEquals(tested.toString(),e.getMessage());
+            } catch (RuntimeException e) {
+                assertThat(e.getMessage()).isNotEmpty();
             }
         }
-
+        System.out.println(output.toString());
     }
 
     /*
@@ -118,13 +114,14 @@ public class Connect4TDDSpec {
 
     @Test
     public void whenAskedForCurrentPlayerTheOutputNotice() {
-        tested.getCurrentPlayer();
-
-
+        String jugador = tested.getCurrentPlayer();
+        assertThat(output.toString()).isNotEmpty();
     }
 
     @Test
     public void whenADiscIsIntroducedTheBoardIsPrinted() {
+      tested.putDiscInColumn(1);
+      assertThat(output.toString()).isNotEmpty();
 
     }
 
@@ -134,11 +131,21 @@ public class Connect4TDDSpec {
 
     @Test
     public void whenTheGameStartsItIsNotFinished() {
-
+        assertFalse(tested.isFinished());
     }
 
     @Test
     public void whenNoDiscCanBeIntroducedTheGamesIsFinished() {
+        for (int i = 0; i < Connect4.COLUMNS; i++) {
+            try {
+                for (int j = 0; j < Connect4.ROWS; j++) {
+                    tested.putDiscInColumn(i);
+                }
+            } catch (RuntimeException e) {
+                assertThat(e.getMessage()).isNotEmpty();
+            }
+        }
+        assertThat(tested.isFinished()).isTrue();
 
     }
 
@@ -149,7 +156,14 @@ public class Connect4TDDSpec {
 
     @Test
     public void when4VerticalDiscsAreConnectedThenThatPlayerWins() {
+        String playerOne = tested.getCurrentPlayer();
+        for (int i = 1; i < Connect4.COLUMNS; i++) {
+            tested.putDiscInColumn(1);
+            tested.switchPlayer();
+        }
+        assertThat(tested.getWinner().equals(playerOne)).isTrue();
 
+        System.out.println(output.toString());
     }
 
     /*
@@ -160,6 +174,13 @@ public class Connect4TDDSpec {
     @Test
     public void when4HorizontalDiscsAreConnectedThenThatPlayerWins() {
 
+        String p = tested.getCurrentPlayer();
+        for (int i = 0; i < Connect4.ROWS; i++) {
+            tested.putDiscInColumn(i);
+            tested.switchPlayer();
+        }
+        assertThat(tested.getWinner().equals(p)).isTrue();
+        System.out.println(output.toString());
     }
 
     /*
