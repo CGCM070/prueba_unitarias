@@ -23,11 +23,13 @@ public class PlanetSpec {
     }
 
     public void whenInstantiatedThenMaxIsSet() {
-
+        Point max = planet.getMax();
+        assertEquals(max.getX(), 50);
     }
 
     public void whenInstantiatedThenObstaclesAreSet() {
-
+        List<Point> obstacles = planet.getObstacles();
+        assertEquals(obstacles.size(), 2);
     }
 
 }
