@@ -16,11 +16,12 @@ public class PointSpec {
     }
 
     public void whenInstantiatedThenXIsSet() {
+        assertEquals(point.getX(), 12);
 
     }
 
     public void whenInstantiatedThenYIsSet() {
-
+        assertEquals(point.getY(), 21);
     }
 
 }
