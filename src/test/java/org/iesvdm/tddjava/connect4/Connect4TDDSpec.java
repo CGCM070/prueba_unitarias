@@ -120,8 +120,8 @@ public class Connect4TDDSpec {
 
     @Test
     public void whenADiscIsIntroducedTheBoardIsPrinted() {
-      tested.putDiscInColumn(1);
-      assertThat(output.toString()).isNotEmpty();
+        tested.putDiscInColumn(1);
+        assertThat(output.toString()).isNotEmpty();
 
     }
 
@@ -190,23 +190,28 @@ public class Connect4TDDSpec {
 
     @Test
     public void when4Diagonal1DiscsAreConnectedThenThatPlayerWins() {
-            for (int i =0 ; i < Connect4.COLUMNS-2; i++) {
-                for (int j = 0 ; j <i ; j++) {
-                    tested.putDiscInColumn(i);
-                    tested.switchPlayer();
-                }
+        for (int i = 0; i < Connect4.COLUMNS - 2; i++) {
+            for (int j = 0; j < i; j++) {
+                tested.putDiscInColumn(i);
+                tested.switchPlayer();
             }
-            System.out.println(output.toString());
+        }
+        System.out.println(output.toString());
 
 //            assertThat(tested.isFinished()).isTrue();
-            assertThat(tested.getWinner().equalsIgnoreCase("R")).isTrue();
-
+        assertThat(tested.getWinner().equalsIgnoreCase("R")).isTrue();
 
 
     }
 
     @Test
     public void when4Diagonal2DiscsAreConnectedThenThatPlayerWins() {
-
+          for (int i = 0; i < Connect4.COLUMNS - 2; i++) {
+                for (int j = 0; j < i; j++) {
+                 tested.putDiscInColumn(i);
+                 tested.switchPlayer();
+                }
+          }
+          System.out.println(output.toString());
     }
 }
