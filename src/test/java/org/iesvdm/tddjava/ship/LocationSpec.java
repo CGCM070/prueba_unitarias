@@ -113,34 +113,61 @@ public class LocationSpec {
     }
 
     public void givenSameObjectsWhenEqualsThenTrue() {
-
+        Direction direction = Direction.NORTH;
+        location = new Location(new Point(x, y), direction);
+        Location location1 = new Location(new Point(x, y), direction);
+        assertEquals(location, location1);
     }
 
     public void givenDifferentObjectWhenEqualsThenFalse() {
-
+        Direction direction = Direction.NORTH;
+        location = new Location(new Point(x, y), direction);
+        Direction direction1 = Direction.EAST;
+        Location location1 = new Location(new Point(x, y), direction1);
+        assertNotEquals(location, location1);
     }
 
     public void givenDifferentXWhenEqualsThenFalse() {
-
+        Direction direction = Direction.NORTH;
+        Location location1 = new Location(new Point(x + 1, y), direction);
+        Location location2 = new Location(new Point(x, y), direction);
+        assertNotEquals(location1, location2);
     }
 
     public void givenDifferentYWhenEqualsThenFalse() {
-
+        Direction direction = Direction.NORTH;
+        Location location1 = new Location(new Point(x, y + 1), direction);
+        Location location2 = new Location(new Point(x, y - 1), direction);
+        assertNotEquals(location1, location2);
     }
 
     public void givenDifferentDirectionWhenEqualsThenFalse() {
+        Direction direction = Direction.NORTH;
+        Direction direction1 = Direction.SOUTH;
+        assertNotEquals(direction, direction1);
 
     }
 
     public void givenSameXYDirectionWhenEqualsThenTrue() {
-
+        Direction direction = Direction.NORTH;
+        Location location1 = new Location(new Point(x + 1, y + 1), direction);
+        Location location2 = new Location(new Point(x + 1, y + 1), direction);
+        assertEquals(location1, location2);
     }
 
     public void whenCopyThenDifferentObject() {
+
+        Direction direction = Direction.NORTH;
+        location = new Location(new Point(x, y), direction);
+        Location locationcopiada = location.copy();
+        assertEquals(location, locationcopiada);
     }
 
     public void whenCopyThenEquals() {
-
+        Direction direction = Direction.NORTH;
+        location = new Location(new Point(x, y), direction);
+        Location locationcopiada = location.copy();
+        assertEquals(location, locationcopiada);
     }
 
     public void givenDirectionEAndXEqualsMaxXWhenForwardThen1() {
