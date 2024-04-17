@@ -171,26 +171,57 @@ public class LocationSpec {
     }
 
     public void givenDirectionEAndXEqualsMaxXWhenForwardThen1() {
+        Direction direction = Direction.EAST;
+        location = new Location(new Point(x+100, y+100), direction);
+        location.forward(max);
+        int x =1;
+        assertEquals(location.getX(), x);
 
     }
 
     public void givenDirectionWAndXEquals1WhenForwardThenMaxX() {
-
+        Direction direction = Direction.WEST;
+        int inicio =1;
+        location = new Location(new Point(inicio, y+100), direction);
+        location.forward(max);
+        int esperado = max.getX();
+        assertEquals(location.getX(), esperado);
     }
 
     public void givenDirectionNAndYEquals1WhenForwardThenMaxY() {
-
+        Direction direccion  = Direction.NORTH;
+        int inicio =1;
+        location = new Location(new Point(x, inicio),direccion);
+        location.forward(max);
+        int esperado = max.getY();
+        assertEquals(location.getY(), esperado);
     }
 
     public void givenDirectionSAndYEqualsMaxYWhenForwardThen1() {
+        Direction direction = Direction.SOUTH;
+        int yMx = max.getY();
+        location  = new Location(new Point(x ,  yMx),direction);
+        location.forward(max);
+        int ymax= 1;
+        assertEquals(location.getY(), ymax);
 
     }
 
     public void givenObstacleWhenForwardThenReturnFalse() {
-
+        Direction dir = Direction.NORTH;
+        List<Point> obstacles = new ArrayList<>(); // Lista de obstáculos
+        obstacles.add(new Point(x, y)); // Agregar un obstáculo en la posición actual
+        location = new Location(new Point(x, y), dir); // Crear un objeto Location en la posición actual y dirección NORTH
+        assertFalse(location.forward(new Point(100, 100), obstacles));
     }
 
     public void givenObstacleWhenBackwardThenReturnFalse() {
+        Direction dir = Direction.NORTH;
+        List<Point> obstacles = new ArrayList<>(); // Lista de obstáculos
+        obstacles.add(new Point(x, y)); // Agregar un obstáculo en la posición actual
+        location = new Location(new Point(x, y), dir); // Crear un objeto Location en la posición actual y dirección NORTH
+        assertFalse(location.backward(new Point(x, y), obstacles));
+
 
     }
 
